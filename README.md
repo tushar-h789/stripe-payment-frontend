@@ -1,6 +1,8 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+.env.local:
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_51RNvW14FRG2qi8cjf0ogFp0bUkBBWvrP1WHCzthotEjjxGKWLwhmkd4WKkhxJYPK9q6o7YhihEb3cMHhmtg1U05S00vU7cpzw9
 
 First, run the development server:
 
