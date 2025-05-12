@@ -42,7 +42,7 @@ export default function Home() {
     e.preventDefault();
 
     if (!form.productName || !form.price || !form.quantity || !form.name) {
-      alert("সব ফিল্ড পূরণ করুন।");
+      alert("Please fill in all required fields.");
       return;
     }
 
