@@ -4,12 +4,12 @@ import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 
-export default function CheckoutButton({ items }: { items: any }) {
+export default function CheckoutButton({ items }: { items: unknown }) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleCheckout = async () => {
     setLoading(true);
@@ -27,9 +27,12 @@ export default function CheckoutButton({ items }: { items: any }) {
       if (data.error) throw new Error(data.error);
 
       const stripe = await stripePromise;
-      await stripe?.redirectToCheckout({ sessionId: data.id });
-    } catch (err) {
-      setError(err.message);
+      if (!stripe) throw new Error("Stripe failed to load");
+      
+      await stripe.redirectToCheckout({ sessionId: data.id });
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : "An error occurred";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
